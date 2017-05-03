@@ -13,3 +13,4 @@ Took me a while to figure out axios and page fetching
 
 # Extra credit
 overflow text handling
+Empty content handling
