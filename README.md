@@ -12,5 +12,4 @@ I was able to get all my actions working. Once I got that to work, the lab was p
 Took me a while to figure out axios and page fetching
 
 # Extra credit
-overflow text handling
-Empty content handling
+overflow text handling, empty content handling
