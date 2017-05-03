@@ -22,9 +22,13 @@ body {
   align-items: center;
 }
 
-.header {
+button[type="header"] {
+  background: white;
+  border: none;
   margin-left: 2%;
   color: rgb(74,153,79);
+  width: 5em;
+  font-size: 1.4em;
 }
 
 button[type="add-button"] {
@@ -211,6 +215,19 @@ button[type="full-post-title"] {
   word-break: break-all;
 }
 
+button[type="empty-title"] {
+  text-align: left;
+  background: white;
+  border: none;
+  width: 100%;
+  font-size: 1.7em;
+  display: flex;
+  justify-content: flex-start;
+  word-break: break-all;
+  font-style: italic;
+  color: rgb(100, 100, 100);
+}
+
 .title-edit {
   box-sizing: border-box;
   width: 100%;
@@ -244,6 +261,12 @@ button[type="full-post-content"] {
   text-align: left;
 }
 
+.empty-content {
+  text-align: left;
+  font-style: italic;
+  color: rgb(100, 100, 100);
+}
+
 button[type="full-post-tags"] {
   background: white;
   width: 100%;
@@ -255,6 +278,20 @@ button[type="full-post-tags"] {
   justify-content: flex-start;
   word-break: break-all;
   text-align: left;
+}
+
+button[type="empty-tags"] {
+  background: white;
+  width: 100%;
+  border: none;
+  color: rgb(100, 100, 100);
+  margin-top: 2em;
+  font-size: .9em;
+  display: flex;
+  justify-content: flex-start;
+  word-break: break-all;
+  text-align: left;
+  font-style: italic;
 }
 
 .tags-edit {
@@ -271,6 +308,16 @@ button[type="image"] {
   width: 100%;
   padding: 0;
   border: none;
+}
+
+button[type="empty-cover"] {
+  background: rgb(206,232,255);
+  width: 100%;
+  padding: 0;
+  border: none;
+  font-size: 1.7em;
+  font-style: italic;
+  color: rgb(100, 100, 100);
 }
 
 .cover-edit {

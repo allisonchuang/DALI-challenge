@@ -10,7 +10,7 @@ const Nav = (props) => {
   return (
     <div className="top">
       <div className="bar">
-        <div className="header">My Blog</div>
+        <NavLink exact to="/"><button type="header">My Blog</button></NavLink>
         <NavLink to="/posts/new"><button type="add-button">Add</button></NavLink>
       </div>
     </div>

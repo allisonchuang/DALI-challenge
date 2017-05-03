@@ -31,9 +31,15 @@ class Post extends Component {
 
   renderTitle(title) {
     if (!this.state.editingTitle) {
-      return (
-        <button type="full-post-title" onClick={() => { this.setState({ editingTitle: true }); }}>{title}</button>
-      );
+      if (title === '') {
+        return (
+          <button type="empty-title" onClick={() => { this.setState({ editingTitle: true }); }}>Click to add title</button>
+        );
+      } else {
+        return (
+          <button type="full-post-title" onClick={() => { this.setState({ editingTitle: true }); }}>{title}</button>
+        );
+      }
     } else {
       return (
         <input className="title-edit" maxLength={286} autoFocus onBlur={() => {
@@ -51,9 +57,13 @@ class Post extends Component {
 
   renderTags(tags) {
     if (!this.state.editingTags) {
-      return (
-        <button type="full-post-tags" onClick={() => { this.setState({ editingTags: true }); }}>{tags}</button>
-      );
+      if (tags === '') {
+        return <button type="empty-tags" onClick={() => { this.setState({ editingTags: true }); }}>Click to add tags</button>;
+      } else {
+        return (
+          <button type="full-post-tags" onClick={() => { this.setState({ editingTags: true }); }}>{tags}</button>
+        );
+      }
     } else {
       return (
         <input className="tags-edit" autoFocus onBlur={() => {
@@ -71,11 +81,17 @@ class Post extends Component {
 
   renderContent(content) {
     if (!this.state.editingContent) {
-      return (
-        <button type="full-post-content" onClick={() => { this.setState({ editingContent: true }); }}>
-          <div className="full-post-content" dangerouslySetInnerHTML={{ __html: marked(content || '') }} />
-        </button>
-      );
+      if (content === '') {
+        return (<button type="full-post-content" onClick={() => { this.setState({ editingContent: true }); }}>
+          <div className="empty-content" dangerouslySetInnerHTML={{ __html: marked('Click to add content' || '') }} />
+        </button>);
+      } else {
+        return (
+          <button type="full-post-content" onClick={() => { this.setState({ editingContent: true }); }}>
+            <div className="full-post-content" dangerouslySetInnerHTML={{ __html: marked(content || '') }} />
+          </button>
+        );
+      }
     } else {
       return (
         <textarea className="content-edit" autoFocus onBlur={() => {
@@ -93,11 +109,15 @@ class Post extends Component {
 
   renderCover(cover) {
     if (!this.state.editingCover) {
-      return (
-        <button type="image" onClick={() => { this.setState({ editingCover: true }); }}>
-          <img src={this.props.post.cover_url} alt={this.props.post.title} />
-        </button>
-      );
+      if (cover === '') {
+        return <button type="empty-cover" onClick={() => { this.setState({ editingCover: true }); }}>Click to add tags</button>;
+      } else {
+        return (
+          <button type="image" onClick={() => { this.setState({ editingCover: true }); }}>
+            <img src={this.props.post.cover_url} alt={this.props.post.title} />
+          </button>
+        );
+      }
     } else {
       return (
         <input className="cover-edit" autoFocus onBlur={() => {
