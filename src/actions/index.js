@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const ROOT_URL = 'https://cs52-blog.herokuapp.com/api';
-const API_KEY = '?key=a_chuang';
+const ROOT_URL = 'https://allisonchuang-lab5.herokuapp.com/api';
+const API_KEY = '';
 
 
 // keys for actiontypes

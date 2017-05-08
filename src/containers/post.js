@@ -33,11 +33,11 @@ class Post extends Component {
     if (!this.state.editingTitle) {
       if (title === '') {
         return (
-          <button type="empty-title" onClick={() => { this.setState({ editingTitle: true }); }}>Click to add title</button>
+          <button type="empty-title" onClick={() => { this.setState({ editingTitle: true, title: this.props.post.title }); }}>Click to add title</button>
         );
       } else {
         return (
-          <button type="full-post-title" onClick={() => { this.setState({ editingTitle: true }); }}>{title}</button>
+          <button type="full-post-title" onClick={() => { this.setState({ editingTitle: true, title: this.props.post.title }); }}>{title}</button>
         );
       }
     } else {
@@ -58,10 +58,10 @@ class Post extends Component {
   renderTags(tags) {
     if (!this.state.editingTags) {
       if (tags === '') {
-        return <button type="empty-tags" onClick={() => { this.setState({ editingTags: true }); }}>Click to add tags</button>;
+        return <button type="empty-tags" onClick={() => { this.setState({ editingTags: true, tags: this.props.post.tags }); }}>Click to add tags</button>;
       } else {
         return (
-          <button type="full-post-tags" onClick={() => { this.setState({ editingTags: true }); }}>{tags}</button>
+          <button type="full-post-tags" onClick={() => { this.setState({ editingTags: true, tags: this.props.post.tags }); }}>{tags}</button>
         );
       }
     } else {
@@ -82,12 +82,12 @@ class Post extends Component {
   renderContent(content) {
     if (!this.state.editingContent) {
       if (content === '') {
-        return (<button type="full-post-content" onClick={() => { this.setState({ editingContent: true }); }}>
+        return (<button type="full-post-content" onClick={() => { this.setState({ editingContent: true, content: this.props.post.content }); }}>
           <div className="empty-content" dangerouslySetInnerHTML={{ __html: marked('Click to add content' || '') }} />
         </button>);
       } else {
         return (
-          <button type="full-post-content" onClick={() => { this.setState({ editingContent: true }); }}>
+          <button type="full-post-content" onClick={() => { this.setState({ editingContent: true, content: this.props.post.content }); }}>
             <div className="full-post-content" dangerouslySetInnerHTML={{ __html: marked(content || '') }} />
           </button>
         );
@@ -110,10 +110,10 @@ class Post extends Component {
   renderCover(cover) {
     if (!this.state.editingCover) {
       if (cover === '') {
-        return <button type="empty-cover" onClick={() => { this.setState({ editingCover: true }); }}>Click to add tags</button>;
+        return <button type="empty-cover" onClick={() => { this.setState({ editingCover: true, cover: this.props.post.cover_url }); }}>Click to add cover url</button>;
       } else {
         return (
-          <button type="image" onClick={() => { this.setState({ editingCover: true }); }}>
+          <button type="image" onClick={() => { this.setState({ editingCover: true, cover: this.props.post.cover_url }); }}>
             <img src={this.props.post.cover_url} alt={this.props.post.title} />
           </button>
         );
