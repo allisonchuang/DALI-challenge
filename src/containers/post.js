@@ -23,10 +23,32 @@ class Post extends Component {
     this.renderTags = this.renderTags.bind(this);
     this.renderContent = this.renderContent.bind(this);
     this.renderCover = this.renderCover.bind(this);
+    this.formatDate = this.formatDate.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchPost(this.props.match.params.postID);
+  }
+
+  // got from http://stackoverflow.com/questions/8888491/how-do-you-display-javascript-datetime-in-12-hour-am-pm-format
+  formatDate() {
+    const weekday = new Array(7);
+    weekday[0] = 'Sunday';
+    weekday[1] = 'Monday';
+    weekday[2] = 'Tuesday';
+    weekday[3] = 'Wednesday';
+    weekday[4] = 'Thursday';
+    weekday[5] = 'Friday';
+    weekday[6] = 'Saturday';
+    const date = new Date(this.props.post.created_at);
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    const ampm = hours >= 12 ? 'pm' : 'am';
+    hours %= 12;
+    hours = hours || 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? `0${minutes}` : minutes;
+    const strTime = `${hours}:${minutes} ${ampm}`;
+    return `${weekday[date.getDay()]}, ${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}  ${strTime}`;
   }
 
   renderTitle(title) {
@@ -149,6 +171,7 @@ class Post extends Component {
             {this.renderCover(this.props.post.cover_url)}
             <div className="full-post-info">
               {this.renderTitle(this.props.post.title)}
+              <div className="date">{this.formatDate()}</div>
               {this.renderContent(this.props.post.content)}
               {this.renderTags(this.props.post.tags)}
             </div>

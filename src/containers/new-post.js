@@ -37,7 +37,7 @@ class NewPost extends Component {
       <div className="new-post-page">
         <div className="new-inputs">
           <div className="create-title">Create a New Post</div>
-          <input className="create" maxLength={20} placeholder="title" value={this.state.title} onChange={this.onTitleChange} />
+          <input className="create" maxLength={286} placeholder="title" value={this.state.title} onChange={this.onTitleChange} />
           <input className="create" placeholder="tags" value={this.state.tags} onChange={this.onTagsChange} />
           <input className="create" placeholder="content" value={this.state.content} onChange={this.onContentChange} />
           <input className="create" placeholder="cover_url" value={this.state.cover_url} onChange={this.onCoverChange} />
