@@ -10,6 +10,7 @@ const PostTemplate = (props) => {
       <div className="post-info">
         <div className="title">{props.post.title}</div>
         <div className="tags">{props.post.tags}</div>
+        <div className="post-date">{props.formatDate(props.post.created_at)}</div>
       </div>
     </div>
   );

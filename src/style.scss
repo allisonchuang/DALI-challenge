@@ -106,7 +106,7 @@ button[type="post-click"]:hover {
   margin-top:.5em;
   margin-bottom: 1.5em;
   width: 80%;
-  min-height: 5em;
+  min-height: 7em;
   padding: 1em;
   color: rgb(58, 118, 172);
   display: flex;
@@ -133,6 +133,15 @@ button[type="post-click"]:hover {
   text-align: left;
 }
 
+.post-date {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-top: 1em;
+  font-size: 1em;
+  text-align: left;
+}
 
 // Post page stuff
 .post-page {
