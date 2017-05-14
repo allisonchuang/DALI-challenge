@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const ROOT_URL = 'https://allisonchuang-lab5.herokuapp.com/api';
-const API_KEY = '';
+// const ROOT_URL = 'https://allisonchuang-lab5.herokuapp.com/api';
+const ROOT_URL = 'http://localhost:9090/api';
 
 
 // keys for actiontypes
@@ -12,6 +12,12 @@ export const ActionTypes = {
   CREATE_POST: 'CREATE_POST',
   DELETE_POST: 'DELETE_POST',
   GO_TO_POST: 'GO_TO_POST',
+  AUTH_USER: 'AUTH_USER',
+  DEAUTH_USER: 'DEAUTH_USER',
+  AUTH_ERROR: 'AUTH_ERROR',
+  GO_TO_SIGNIN: 'GO_TO_SIGNIN',
+  GO_TO_HOME: 'GO_TO_HOME',
+  GO_TO_NEW: 'GO_TO_NEW',
 };
 
 function receivePosts(json) {
@@ -23,7 +29,7 @@ function receivePosts(json) {
 
 export function fetchPosts() {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/posts/${API_KEY}`).then((response) => {
+    axios.get(`${ROOT_URL}/posts/`).then((response) => {
       dispatch(receivePosts(response.data));
     })
     .catch((error) => {
@@ -34,7 +40,7 @@ export function fetchPosts() {
 
 export function fetchPost(id) {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/posts/${id}${API_KEY}`).then((response) => {
+    axios.get(`${ROOT_URL}/posts/${id}`).then((response) => {
       dispatch({ type: ActionTypes.FETCH_POST, payload: { post: response.data } });
     })
     .catch((error) => {
@@ -46,7 +52,7 @@ export function fetchPost(id) {
 export function createPost(post, history) {
   return (dispatch) => {
     if (post !== null) {
-      axios.post(`${ROOT_URL}/posts/${API_KEY}`, post).then((response) => {
+      axios.post(`${ROOT_URL}/posts`, post, { headers: { authorization: localStorage.getItem('token') } }).then((response) => {
         dispatch(fetchPosts());
       });
     }
@@ -57,7 +63,7 @@ export function createPost(post, history) {
 export function deletePost(id, history) {
   return (dispatch) => {
     if (id !== null) {
-      axios.delete(`${ROOT_URL}/posts/${id}${API_KEY}`).then((response) => {
+      axios.delete(`${ROOT_URL}/posts/${id}`, { headers: { authorization: localStorage.getItem('token') } }).then((response) => {
         dispatch(fetchPosts());
       });
     }
@@ -67,7 +73,7 @@ export function deletePost(id, history) {
 
 export function updatePost(post) {
   return (dispatch) => {
-    axios.put(`${ROOT_URL}/posts/${post.id}${API_KEY}`, post).then((response) => {
+    axios.put(`${ROOT_URL}/posts/${post.id}`, post, { headers: { authorization: localStorage.getItem('token') } }).then((response) => {
       dispatch(fetchPost(post.id));
     });
   };
@@ -76,5 +82,70 @@ export function updatePost(post) {
 export function goToPost(id, history) {
   return (dispatch) => {
     history.push(`/post/${id}`);
+  };
+}
+
+// trigger to deauth if there is error
+// can also use in your error reducer if you have one to display an error message
+export function authError(error) {
+  return {
+    type: ActionTypes.AUTH_ERROR,
+    message: error,
+  };
+}
+
+export function signinUser({ email, password }, history) {
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/signin`, { email, password }).then((response) => {
+      dispatch({ type: ActionTypes.AUTH_USER });
+      localStorage.setItem('token', response.data.token);
+      history.push('/');
+    })
+    .catch((error) => {
+      dispatch(authError(`Sign In Failed: ${error.response}`));
+    });
+  };
+}
+
+
+export function signupUser({ email, password }, history) {
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/signup`, { email, password }).then((response) => {
+      dispatch({ type: ActionTypes.AUTH_USER });
+      localStorage.setItem('token', response.data.token);
+      history.push('/');
+    })
+    .catch((error) => {
+      dispatch(authError(`Sign Up Failed: ${error.response.data}`));
+    });
+  };
+}
+
+
+// deletes token from localstorage
+// and deauths
+export function signoutUser(history) {
+  return (dispatch) => {
+    localStorage.removeItem('token');
+    dispatch({ type: ActionTypes.DEAUTH_USER });
+    history.push('/');
+  };
+}
+
+export function goToSignin(history) {
+  return (dispatch) => {
+    history.push('/signin');
+  };
+}
+
+export function goToHome(history) {
+  return (dispatch) => {
+    history.push('/');
+  };
+}
+
+export function goToNew(history) {
+  return (dispatch) => {
+    history.push('/posts/new');
   };
 }
