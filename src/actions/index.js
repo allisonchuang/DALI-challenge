@@ -1,134 +1,27 @@
 import axios from 'axios';
 
-const ROOT_URL = 'https://allisonchuang-lab5p2.herokuapp.com/api';
+const ROOT_URL = 'http://mappy.dali.dartmouth.edu/members.json';
 
 // keys for actiontypes
 export const ActionTypes = {
-  FETCH_POSTS: 'FETCH_POSTS',
-  FETCH_POST: 'FETCH_POST',
-  RECEIVE_POSTS: 'RECEIVE_POSTS',
-  CREATE_POST: 'CREATE_POST',
-  DELETE_POST: 'DELETE_POST',
-  AUTH_USER: 'AUTH_USER',
-  DEAUTH_USER: 'DEAUTH_USER',
-  AUTH_ERROR: 'AUTH_ERROR',
-  CLEAR_ERROR: 'CLEAR_ERROR',
+  FETCH_MEMBERS: 'FETCH_MEMBERS',
+  RECEIVE_MEMBERS: 'RECEIVE_MEMBERS',
 };
 
-function receivePosts(json) {
+function receiveMembers(json) {
   return {
-    type: ActionTypes.RECEIVE_POSTS,
-    posts: json,
+    type: ActionTypes.RECEIVE_MEMBERS,
+    members: json,
   };
 }
 
-export function fetchPosts() {
+export function fetchMembers() {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/posts/`).then((response) => {
-      dispatch(receivePosts(response.data));
+    axios.get(`${ROOT_URL}`).then((response) => {
+      dispatch(receiveMembers(response.data));
     })
     .catch((error) => {
-      console.log('Couldn\'t fetch posts!');
+      console.log('Couldn\'t fetch members!');
     });
-  };
-}
-
-export function fetchPost(id) {
-  return (dispatch) => {
-    axios.get(`${ROOT_URL}/posts/${id}`).then((response) => {
-      dispatch({ type: ActionTypes.FETCH_POST, payload: { post: response.data } });
-    })
-    .catch((error) => {
-      console.log('Couldn\'t fetch post!');
-    });
-  };
-}
-
-export function createPost(post, history) {
-  return (dispatch) => {
-    if (post !== null) {
-      axios.post(`${ROOT_URL}/posts`, post, { headers: { authorization: localStorage.getItem('token') } }).then((response) => {
-        dispatch(fetchPosts());
-      });
-    }
-    history.push('/');
-  };
-}
-
-export function deletePost(id, history) {
-  return (dispatch) => {
-    if (id !== null) {
-      axios.delete(`${ROOT_URL}/posts/${id}`, { headers: { authorization: localStorage.getItem('token') } }).then((response) => {
-        dispatch(fetchPosts());
-      });
-    }
-    history.push('/');
-  };
-}
-
-export function updatePost(post) {
-  return (dispatch) => {
-    axios.put(`${ROOT_URL}/posts/${post.id}`, post, { headers: { authorization: localStorage.getItem('token') } }).then((response) => {
-      dispatch(fetchPost(post.id));
-    });
-  };
-}
-
-// trigger to deauth if there is error
-// can also use in your error reducer if you have one to display an error message
-export function authError(error) {
-  return {
-    type: ActionTypes.AUTH_ERROR,
-    message: error,
-  };
-}
-
-export function clearError() {
-  return {
-    type: ActionTypes.CLEAR_ERROR,
-  };
-}
-
-export function signinUser({ email, password }, history) {
-  return (dispatch) => {
-    axios.post(`${ROOT_URL}/signin`, { email, password }).then((response) => {
-      dispatch({ type: ActionTypes.AUTH_USER });
-      localStorage.setItem('token', response.data.token);
-      history.push('/');
-    })
-    .catch((error) => {
-      dispatch(authError(`Sign In Failed: ${error.response.data}`));
-    });
-  };
-}
-
-
-export function signupUser({ email, password, username, profile }, history) {
-  return (dispatch) => {
-    axios.post(`${ROOT_URL}/signup`, { email, password, username, profile }).then((response) => {
-      dispatch({ type: ActionTypes.AUTH_USER });
-      localStorage.setItem('token', response.data.token);
-      history.push('/');
-    })
-    .catch((error) => {
-      dispatch(authError(`Sign Up Failed: ${error.response.data}`));
-    });
-  };
-}
-
-
-// deletes token from localstorage
-// and deauths
-export function signoutUser(history) {
-  return (dispatch) => {
-    localStorage.removeItem('token');
-    dispatch({ type: ActionTypes.DEAUTH_USER });
-    history.push('/');
-  };
-}
-
-export function goTo(path, history) {
-  return (dispatch) => {
-    history.push(path);
   };
 }

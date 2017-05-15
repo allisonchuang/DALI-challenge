@@ -1,44 +1,39 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { fetchPosts, goTo } from '../actions';
-import PostTemplate from '../components/post-template';
+import { fetchMembers } from '../actions';
+import MemberTemplate from '../components/member-template';
 
-class Posts extends Component {
+class Members extends Component {
   constructor(props) {
     super(props);
 
     this.state = {};
     this.componentDidMount = this.componentDidMount.bind(this);
-    this.formatDate = this.formatDate.bind(this);
-    this.mapPosts = this.mapPosts.bind(this);
+    this.mapMembers = this.mapMembers.bind(this);
   }
 
   componentDidMount() {
-    this.props.fetchPosts();
+    this.props.fetchMembers();
   }
 
-  // got from http://stackoverflow.com/questions/8888491/how-do-you-display-javascript-datetime-in-12-hour-am-pm-format
-  formatDate(d) {
-    this.state = {};
-    const date = new Date(d);
-    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
-  }
-
-  mapPosts() {
-    if (this.props.posts != null) {
-      const postItems = this.props.posts.map((post) => {
+  // map out all the members from the list of members
+  mapMembers() {
+    if (this.props.members != null) {
+      const memberItems = this.props.members.map((member) => {
         return (
-          <div className="post-layout" key={post.id}>
-            <button type="post-click" onClick={() => { this.props.goTo(`/post/${post.id}`, this.props.history); }}>
-              <PostTemplate post={post} id={post.id} formatDate={this.formatDate} />
+          <div className="member-layout" key={member.name}>
+            <button type="member-click">
+              <a href={member.url}>
+                <MemberTemplate member={member} id={member.name} />
+              </a>
             </button>
           </div>
         );
       });
       return (
         <div className="page">
-          {postItems}
+          {memberItems}
         </div>
       );
     } else {
@@ -50,7 +45,7 @@ class Posts extends Component {
   render() {
     return (
       <div>
-        {this.mapPosts()}
+        {this.mapMembers()}
       </div>
     );
   }
@@ -58,16 +53,14 @@ class Posts extends Component {
 
 const mapStateToProps = state => (
   {
-    posts: state.posts.all,
-    post: state.posts.post,
+    members: state.members.all,
   }
 );
 
 const mapDispatchToProps = dispatch => (
   {
-    fetchPosts: () => dispatch(fetchPosts()),
-    goTo: (path, history) => dispatch(goTo(path, history)),
+    fetchMembers: () => dispatch(fetchMembers()),
   }
 );
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Posts));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Members));
