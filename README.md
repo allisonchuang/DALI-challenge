@@ -5,7 +5,7 @@ I was able to complete the lab.
 * If one of the input fields is not entered, I have a div that is displayed in my editing post page that says "click to add content"
 
 ## Signing in / Signing Up
-To sign in, click on the 'sign in' button on the top right corner of the nav bar. 
+To sign in, click on the 'sign in' button on the top right corner of the nav bar. If you want to sign up, there is a button next to the sign in button on the sign in page. Vise versa for the sign up page. If the user signs in or signs up incorrectly, the blog will tell them
 
 # What worked
 Once I got all the backend working correctly, the frontend for this lab was very easy.
