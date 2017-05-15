@@ -11,13 +11,9 @@ export const ActionTypes = {
   RECEIVE_POSTS: 'RECEIVE_POSTS',
   CREATE_POST: 'CREATE_POST',
   DELETE_POST: 'DELETE_POST',
-  GO_TO_POST: 'GO_TO_POST',
   AUTH_USER: 'AUTH_USER',
   DEAUTH_USER: 'DEAUTH_USER',
   AUTH_ERROR: 'AUTH_ERROR',
-  GO_TO_SIGNIN: 'GO_TO_SIGNIN',
-  GO_TO_HOME: 'GO_TO_HOME',
-  GO_TO_NEW: 'GO_TO_NEW',
 };
 
 function receivePosts(json) {
@@ -79,12 +75,6 @@ export function updatePost(post) {
   };
 }
 
-export function goToPost(id, history) {
-  return (dispatch) => {
-    history.push(`/post/${id}`);
-  };
-}
-
 // trigger to deauth if there is error
 // can also use in your error reducer if you have one to display an error message
 export function authError(error) {
@@ -102,15 +92,15 @@ export function signinUser({ email, password }, history) {
       history.push('/');
     })
     .catch((error) => {
-      dispatch(authError(`Sign In Failed: ${error.response}`));
+      dispatch(authError(`Sign In Failed: ${error.response.data}`));
     });
   };
 }
 
 
-export function signupUser({ email, password }, history) {
+export function signupUser({ email, password, username, profile }, history) {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/signup`, { email, password }).then((response) => {
+    axios.post(`${ROOT_URL}/signup`, { email, password, username, profile }).then((response) => {
       dispatch({ type: ActionTypes.AUTH_USER });
       localStorage.setItem('token', response.data.token);
       history.push('/');
@@ -132,20 +122,8 @@ export function signoutUser(history) {
   };
 }
 
-export function goToSignin(history) {
+export function goTo(path, history) {
   return (dispatch) => {
-    history.push('/signin');
-  };
-}
-
-export function goToHome(history) {
-  return (dispatch) => {
-    history.push('/');
-  };
-}
-
-export function goToNew(history) {
-  return (dispatch) => {
-    history.push('/posts/new');
+    history.push(path);
   };
 }

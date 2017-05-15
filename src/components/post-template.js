@@ -9,8 +9,11 @@ const PostTemplate = (props) => {
       </div>
       <div className="post-info">
         <div className="title">{props.post.title}</div>
+        <div className="user-entry">
+          <div className="post-user">{`By ${props.post.author.username}`}</div>
+          <div className="post-date">{` on ${props.formatDate(props.post.created_at)}`}</div>
+        </div>
         <div className="tags">{props.post.tags}</div>
-        <div className="post-date">{props.formatDate(props.post.created_at)}</div>
       </div>
     </div>
   );

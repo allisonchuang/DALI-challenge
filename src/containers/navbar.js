@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { signoutUser, goToSignin, goToHome, goToNew } from '../actions';
+import { signoutUser, goTo } from '../actions';
 
 class Nav extends Component {
   constructor(props) {
@@ -13,9 +13,11 @@ class Nav extends Component {
 
   renderSignup(authenticated) {
     if (authenticated) {
-      return <button type="sign" onClick={() => { this.props.signout(this.props.history); }}>Sign Out</button>;
+      return (
+        <button type="sign" onClick={() => { this.props.signout(this.props.history); }}>Sign Out</button>
+      );
     } else {
-      return <button type="sign" onClick={() => { this.props.goToSignin(this.props.history); }}>Sign In</button>;
+      return <button type="sign" onClick={() => { this.props.goTo('/signin', this.props.history); }}>Sign In</button>;
     }
   }
 
@@ -23,8 +25,8 @@ class Nav extends Component {
     return (
       <div className="top">
         <div className="bar">
-          <button type="header" onClick={() => { this.props.goToHome(this.props.history); }}>My Blog</button>
-          <button type="add-button" onClick={() => { this.props.goToNew(this.props.history); }}>Add</button>
+          <button type="header" onClick={() => { this.props.goTo('/', this.props.history); }}>My Blog</button>
+          <button type="add-button" onClick={() => { this.props.goTo('/posts/new', this.props.history); }}>Add Post</button>
           {this.renderSignup(this.props.auth)}
         </div>
       </div>
@@ -41,9 +43,7 @@ const mapStateToProps = state => (
 const mapDispatchToProps = dispatch => (
   {
     signout: history => dispatch(signoutUser(history)),
-    goToSignin: history => dispatch(goToSignin(history)),
-    goToHome: history => dispatch(goToHome(history)),
-    goToNew: history => dispatch(goToNew(history)),
+    goTo: (path, history) => dispatch(goTo(path, history)),
   }
 );
 

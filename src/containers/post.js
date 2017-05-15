@@ -172,6 +172,10 @@ class Post extends Component {
             <div className="full-post-info">
               {this.renderTitle(this.props.post.title)}
               <div className="date">{this.formatDate()}</div>
+              <div className="user">
+                <img className="profile" src={this.props.post.author.profile} alt={this.props.post.author.username} />
+                <div className="username">{`By ${this.props.post.author.username}`}</div>
+              </div>
               {this.renderContent(this.props.post.content)}
               {this.renderTags(this.props.post.tags)}
             </div>

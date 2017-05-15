@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { signinUser, goTo } from '../actions';
+import { signupUser, goTo } from '../actions';
 
-class SignIn extends Component {
+class SignUp extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       email: '',
       password: '',
+      username: '',
+      profile: '',
     };
     this.onEmailChange = this.onEmailChange.bind(this);
     this.onPasswordChange = this.onPasswordChange.bind(this);
+    this.onUsernameChange = this.onUsernameChange.bind(this);
+    this.onProfileChange = this.onProfileChange.bind(this);
   }
 
   onEmailChange(event) {
@@ -21,27 +25,37 @@ class SignIn extends Component {
   onPasswordChange(event) {
     this.setState({ password: event.target.value });
   }
+  onUsernameChange(event) {
+    this.setState({ username: event.target.value });
+  }
+  onProfileChange(event) {
+    this.setState({ profile: event.target.value });
+  }
 
   render() {
     return (
       <div className="signin-page">
         <div className="new-signin">
-          <div className="signin-title">Sign In</div>
+          <div className="signin-title">Sign Up</div>
           <input className="signin" placeholder="Email" value={this.state.email} onChange={this.onEmailChange} />
           <input className="signin" placeholder="Password" value={this.state.password} onChange={this.onPasswordChange} />
+          <input className="signin" placeholder="Name" value={this.state.username} onChange={this.onUsernameChange} />
+          <input className="signin" placeholder="Profile Picture URL" value={this.state.profile} onChange={this.onProfileChange} />
           <div className="signin-buttons">
             <button type="signin"
               onClick={() => {
-                this.props.signin(
-                { email: this.state.email, password: this.state.password },
+                this.props.signup(
+                { email: this.state.email, password: this.state.password, username: this.state.username, profile: this.state.profile },
                 this.props.history);
                 this.setState({
                   email: '',
                   password: '',
+                  username: '',
+                  profile: '',
                 });
               }}
-            >Sign In</button>
-            <button type="signin" onClick={() => { this.props.goTo('/signup', this.props.history); }}>Want a new account? Sign up here</button>
+            >Sign Up</button>
+            <button type="signin" onClick={() => { this.props.goTo('/signin', this.props.history); }}>Already have an Account? Sign in here</button>
           </div>
         </div>
       </div>
@@ -57,10 +71,10 @@ const mapStateToProps = state => (
 
 const mapDispatchToProps = dispatch => (
   {
-    signin: ({ email, password }, history) => dispatch(signinUser({ email, password }, history)),
+    signup: ({ email, password, username, profile }, history) => dispatch(signupUser({ email, password, username, profile }, history)),
     goTo: (path, history) => dispatch(goTo(path, history)),
   }
 );
 
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SignIn));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SignUp));

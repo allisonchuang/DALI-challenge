@@ -22,10 +22,24 @@ body {
   align-items: center;
 }
 
+button[type="sign"] {
+  box-sizing: border-box;
+  font-size: .7em;
+  height: 2.3em;
+  background: white;
+  margin-right: 1em;
+  border: 2px solid rgb(91,184,96);
+  border-radius: 5px;
+  color: rgb(91,184,96);
+}
+
+button[type="sign"]:hover {
+  box-shadow: 0 0 .3em .05em rgb(170, 170, 170);
+}
+
 button[type="header"] {
   background: white;
   border: none;
-  margin-left: 2%;
   color: rgb(74,153,79);
   width: 5em;
   font-size: 1.4em;
@@ -35,7 +49,6 @@ button[type="add-button"] {
   box-sizing: border-box;
   font-size: .7em;
   height: 2.3em;
-  width: 3.5em;
   background: white;
   margin-right: 1em;
   border: 2px solid rgb(91,184,96);
@@ -117,15 +130,33 @@ button[type="post-click"]:hover {
 .title {
   width: 100%;
   overflow: hidden;
+  line-height: 1.7em;
   white-space: nowrap;
   text-overflow: ellipsis;
   font-size: 1.7em;
   text-align: left;
 }
 
+.user-entry {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.post-user {
+  overflow: hidden;
+  line-height: 1.2em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 1em;
+  text-align: left;
+}
+
 .tags {
   width: 100%;
   overflow: hidden;
+  line-height: 1.3em;
   white-space: nowrap;
   text-overflow: ellipsis;
   margin-top: 1em;
@@ -134,16 +165,38 @@ button[type="post-click"]:hover {
 }
 
 .post-date {
-  width: 100%;
-  overflow: hidden;
+  margin-left: .3em;
+  line-height: 1.2em;
   white-space: nowrap;
-  text-overflow: ellipsis;
-  margin-top: 1em;
   font-size: 1em;
   text-align: left;
 }
 
 // Post page stuff
+.user {
+  margin-top: .5em;
+  margin-left: .5%;
+  display: flex;
+  align-items: center;
+}
+
+.profile {
+  border-radius: 50%;
+  width: 3em;
+  height: 3em;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1em;
+}
+
+.username {
+  font-weight: 900;
+  font-size: 1.3em;
+  word-break: break-all;
+}
+
 .post-page {
   width: 100%;
   display: flex;
@@ -397,4 +450,48 @@ button[type=create]:hover:enabled {
 
 #cancel {
   color: rgb(248,154,48);
+}
+
+// signin page
+.signin-page {
+  display: flex;
+  justify-content: center;
+}
+
+.new-signin {
+  width: 92%;
+  display: flex;
+  flex-direction: column;
+}
+
+.signin-title {
+  font-size: 2em;
+}
+
+.signin {
+  margin-top: .7em;
+  font-size: 1.3em;
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 3px;
+  height: 1.6em;
+  padding-left: .5em;
+}
+
+.signin-buttons {
+  margin-top: 1em;
+}
+
+button[type="signin"] {
+  background: rgb(235, 235, 235);
+  border: 1px solid;
+  border-radius: 3px;
+  margin-right: 2em;
+  font-size: 1em;
+  height: 2.3em;
+  text-align: center;
+  color: rgb(69,188,219);
+}
+
+button[type=signin]:hover:enabled {
+  box-shadow: 0 0 .2em .1em rgb(170, 170, 170);
 }
