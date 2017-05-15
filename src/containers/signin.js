@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { signinUser, goTo } from '../actions';
+import { signinUser, goTo, clearError } from '../actions';
 
 class SignIn extends Component {
   constructor(props) {
@@ -13,6 +13,7 @@ class SignIn extends Component {
     };
     this.onEmailChange = this.onEmailChange.bind(this);
     this.onPasswordChange = this.onPasswordChange.bind(this);
+    this.renderError = this.renderError.bind(this);
   }
 
   onEmailChange(event) {
@@ -20,6 +21,14 @@ class SignIn extends Component {
   }
   onPasswordChange(event) {
     this.setState({ password: event.target.value });
+  }
+
+  renderError() {
+    if (this.props.error === null) {
+      return <div />;
+    } else {
+      return <div className="error">{this.props.error}</div>;
+    }
   }
 
   render() {
@@ -41,8 +50,9 @@ class SignIn extends Component {
                 });
               }}
             >Sign In</button>
-            <button type="signin" onClick={() => { this.props.goTo('/signup', this.props.history); }}>Want a new account? Sign up here</button>
+            <button type="signin" onClick={() => { this.props.goTo('/signup', this.props.history); this.props.clearError(); }}>Want a new account? Sign up here</button>
           </div>
+          {this.renderError()}
         </div>
       </div>
     );
@@ -59,6 +69,7 @@ const mapDispatchToProps = dispatch => (
   {
     signin: ({ email, password }, history) => dispatch(signinUser({ email, password }, history)),
     goTo: (path, history) => dispatch(goTo(path, history)),
+    clearError: () => dispatch(clearError()),
   }
 );
 

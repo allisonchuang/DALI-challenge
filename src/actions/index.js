@@ -14,6 +14,7 @@ export const ActionTypes = {
   AUTH_USER: 'AUTH_USER',
   DEAUTH_USER: 'DEAUTH_USER',
   AUTH_ERROR: 'AUTH_ERROR',
+  CLEAR_ERROR: 'CLEAR_ERROR',
 };
 
 function receivePosts(json) {
@@ -81,6 +82,12 @@ export function authError(error) {
   return {
     type: ActionTypes.AUTH_ERROR,
     message: error,
+  };
+}
+
+export function clearError() {
+  return {
+    type: ActionTypes.CLEAR_ERROR,
   };
 }
 

@@ -27,7 +27,7 @@ button[type="sign"] {
   font-size: .7em;
   height: 2.3em;
   background: white;
-  margin-right: 1em;
+  margin-right: 1.5em;
   border: 2px solid rgb(91,184,96);
   border-radius: 5px;
   color: rgb(91,184,96);
@@ -50,7 +50,7 @@ button[type="add-button"] {
   font-size: .7em;
   height: 2.3em;
   background: white;
-  margin-right: 1em;
+  margin-right: 3.5em;
   border: 2px solid rgb(91,184,96);
   border-radius: 5px;
   color: rgb(91,184,96);
@@ -494,4 +494,9 @@ button[type="signin"] {
 
 button[type=signin]:hover:enabled {
   box-shadow: 0 0 .2em .1em rgb(170, 170, 170);
+}
+
+.error {
+  color: red;
+  margin-top: 1em;
 }

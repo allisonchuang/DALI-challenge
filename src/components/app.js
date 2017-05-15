@@ -6,6 +6,7 @@ import Post from '../containers/post';
 import SignIn from '../containers/signin';
 import SignUp from '../containers/signup';
 import Nav from '../containers/navbar';
+// import Error from '../containers/error';
 import requireAuth from '../containers/requireAuth';
 import '../style.scss';
 

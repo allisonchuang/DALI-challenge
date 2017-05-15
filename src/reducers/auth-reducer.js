@@ -15,6 +15,10 @@ const AuthReducer = (state = { authenticated: false, message: '' }, action) => {
         authenticated: false,
         message: action.message,
       });
+    case ActionTypes.CLEAR_ERROR:
+      return Object.assign({}, state, {
+        message: '',
+      });
     default:
       return state;
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { signoutUser, goTo } from '../actions';
+import { signoutUser, goTo, clearError } from '../actions';
 
 class Nav extends Component {
   constructor(props) {
@@ -17,7 +17,7 @@ class Nav extends Component {
         <button type="sign" onClick={() => { this.props.signout(this.props.history); }}>Sign Out</button>
       );
     } else {
-      return <button type="sign" onClick={() => { this.props.goTo('/signin', this.props.history); }}>Sign In</button>;
+      return <button type="sign" onClick={() => { this.props.goTo('/signin', this.props.history); this.props.clearError(); }}>Sign In</button>;
     }
   }
 
@@ -44,6 +44,7 @@ const mapDispatchToProps = dispatch => (
   {
     signout: history => dispatch(signoutUser(history)),
     goTo: (path, history) => dispatch(goTo(path, history)),
+    clearError: () => dispatch(clearError()),
   }
 );
 
