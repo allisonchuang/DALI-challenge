@@ -11,6 +11,8 @@ class Members extends Component {
     this.state = {};
     this.componentDidMount = this.componentDidMount.bind(this);
     this.mapMembers = this.mapMembers.bind(this);
+    this.filterMembers = this.filterMembers.bind(this);
+    this.correctRender = this.correctRender.bind(this);
   }
 
   componentDidMount() {
@@ -42,10 +44,62 @@ class Members extends Component {
       );
     }
   }
+
+  // map out all the members from the list of members
+  filterMembers() {
+    if (this.props.members != null) {
+      const allMembers = [];
+      this.props.members.map((member) => {
+        member.terms_on.forEach((term) => {
+          if (term === '17S') {
+            allMembers.push(member);
+          }
+        });
+        return null;
+      });
+      const memberItems = allMembers.map((member) => {
+        return (
+          <div className="member-layout" key={member.name}>
+            <button type="member-click">
+              <a href={member.url}>
+                <MemberTemplate member={member} id={member.name} />
+              </a>
+            </button>
+          </div>
+        );
+      });
+      return (
+        <div className="page">
+          {memberItems}
+        </div>
+      );
+    } else {
+      return (
+        <div>Loading...</div>
+      );
+    }
+  }
+
+  correctRender() {
+    if (this.props.filter === true) {
+      return (
+        <div>
+          {this.filterMembers()}
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          {this.mapMembers()}
+        </div>
+      );
+    }
+  }
+
   render() {
     return (
       <div>
-        {this.mapMembers()}
+        {this.correctRender()}
       </div>
     );
   }
@@ -54,6 +108,7 @@ class Members extends Component {
 const mapStateToProps = state => (
   {
     members: state.members.all,
+    filter: state.members.filter,
   }
 );
 

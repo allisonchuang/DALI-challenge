@@ -1,7 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Members from '../containers/posts';
+import Members from '../containers/members';
+import Toggle from '../containers/toggle';
 import '../style.scss';
+
 
 // navbar at top of page
 const Nav = (props) => {
@@ -19,6 +21,7 @@ const App = (props) => {
   return (
     <Router>
       <div>
+        <Toggle />
         <Nav />
         <Switch>
           <Route exact path="/" component={Members} />
