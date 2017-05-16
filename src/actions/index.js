@@ -9,6 +9,7 @@ export const ActionTypes = {
   FILTER_MEMBERS: 'FILTER_MEMBERS',
 };
 
+// send the fetched members to the reducer
 function receiveMembers(json) {
   return {
     type: ActionTypes.RECEIVE_MEMBERS,
@@ -16,6 +17,7 @@ function receiveMembers(json) {
   };
 }
 
+// fetch all the members from the api
 export function fetchMembers() {
   return (dispatch) => {
     axios.get(`${ROOT_URL}`).then((response) => {
@@ -27,6 +29,7 @@ export function fetchMembers() {
   };
 }
 
+// change whether the display filter is on or not
 export function filterMembers(onFilter) {
   return {
     type: ActionTypes.FILTER_MEMBERS,

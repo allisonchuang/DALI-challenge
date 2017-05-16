@@ -5,6 +5,7 @@ import Toggle from 'material-ui/Toggle';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { filterMembers } from '../actions';
 
+// Toggle style
 const styles = {
   toggle: {
     margin: 15,
@@ -12,7 +13,8 @@ const styles = {
   },
 };
 
-// navbar at top of page
+// Toggle makes use of Google Material-Ui components package
+// Every time the toggle is used, change the filter
 const Toggler = (props) => {
   return (
     <MuiThemeProvider>
