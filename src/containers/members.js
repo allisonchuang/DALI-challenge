@@ -40,10 +40,18 @@ class Members extends Component {
 
       // make a MemberTemplate for each member in listOfMembers
       const memberItems = listOfMembers.map((member) => {
+        // check for member urls that are pdfs held by the api
+        let url;
+        if (member.url.includes('.pdf')) {  // attach the api if the url ends with .pdf
+          url = `http://mappy.dali.dartmouth.edu/${member.url}`;
+        } else {  // otherwise just keep the regular url
+          url = member.url;
+        }
+
         return (
           <div className="member-layout" key={member.name}>
             <button type="member-click">
-              <a href={member.url}>
+              <a href={url}>
                 <MemberTemplate getAddress={this.props.getAddress} member={member} id={member.name} />
               </a>
             </button>
