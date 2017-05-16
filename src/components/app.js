@@ -4,7 +4,6 @@ import Members from '../containers/members';
 import Toggle from '../containers/toggle';
 import '../style.scss';
 
-
 // navbar at top of page
 const Nav = (props) => {
   return (

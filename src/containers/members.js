@@ -19,7 +19,7 @@ class Members extends Component {
     this.props.fetchMembers();
   }
 
-  // map out all the members from the list of members
+  // map out all the members from the list of members in the json
   mapMembers() {
     if (this.props.members != null) {
       const memberItems = this.props.members.map((member) => {
@@ -27,7 +27,7 @@ class Members extends Component {
           <div className="member-layout" key={member.name}>
             <button type="member-click">
               <a href={member.url}>
-                <MemberTemplate member={member} id={member.name} />
+                <MemberTemplate getAddress={this.props.getAddress} member={member} id={member.name} />
               </a>
             </button>
           </div>
@@ -45,7 +45,7 @@ class Members extends Component {
     }
   }
 
-  // map out all the members from the list of members
+  // map out only the members that are on in 17S
   filterMembers() {
     if (this.props.members != null) {
       const allMembers = [];
@@ -80,6 +80,7 @@ class Members extends Component {
     }
   }
 
+  // render the members depending on what the filter is
   correctRender() {
     if (this.props.filter === true) {
       return (

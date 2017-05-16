@@ -3,6 +3,7 @@ import { ActionTypes } from '../actions';
 const initialState = {
   all: [],
   filter: false,
+  address: '',
 };
 
 const MembersReducer = (state = initialState, action) => {
